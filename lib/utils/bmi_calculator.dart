@@ -1,4 +1,6 @@
 import 'package:bmi/viewmodel/bmi_state.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class BmiCalculator {
   static double calculate(double height, double weight) {
@@ -14,6 +16,18 @@ class BmiCalculator {
       return BmiCategory.overweight;
     } else {
       return BmiCategory.obese;
+    }
+  }
+
+  static Color getCategoryColor(String type) {
+    if (type == "underweight") {
+      return Colors.blue;
+    } else if (type == "normal") {
+      return Colors.green;
+    } else if (type == "overweight") {
+      return Colors.orange;
+    } else {
+      return Colors.red;
     }
   }
 }
