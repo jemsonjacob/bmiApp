@@ -1,3 +1,4 @@
+import 'package:bmi/utils/bmi_calculator.dart';
 import 'package:bmi/viewmodel/bmi_state.dart';
 import 'package:bmi/viewmodel/body_view_model.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class BmiResultsScreen extends ConsumerWidget {
   const BmiResultsScreen({super.key});
 
-  @override
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(bminotifierProvider);
@@ -18,13 +18,16 @@ class BmiResultsScreen extends ConsumerWidget {
   }
 
   Widget _buildBody(BmiState state) {
+    final Color color = BmiCalculator.getCategoryColor(
+      state.category?.name ?? '',
+    );
     if (state.isLoading) {
       return const Center(child: CircularProgressIndicator());
     }
 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8),
+        padding: const EdgeInsets.all(15),
         child: Column(
           children: [
             Container(
@@ -32,23 +35,26 @@ class BmiResultsScreen extends ConsumerWidget {
               width: double.infinity,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: Colors.cyan.shade100,
-                border: Border.all(color: Colors.cyan),
+                color: color.withAlpha(40),
+                border: Border.all(color: Colors.grey),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(" Your BMI "),
+                    Text(
+                      "Your BMI ",
+                      style: TextStyle(fontSize: 20, color: Colors.grey),
+                    ),
                     const SizedBox(height: 10),
                     Text(
                       state.bmi?.toStringAsFixed(1) ?? "--",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color: color),
                     ),
                     Text(
                       state.category?.name ?? "--",
-                      style: TextStyle(fontSize: 20),
+                      style: TextStyle(fontSize: 20, color: color),
                     ),
                   ],
                 ),

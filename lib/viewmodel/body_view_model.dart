@@ -17,13 +17,10 @@ class BmiViewModel extends Notifier<BmiState> {
   }) async {
     // Show loading
     state = state.copyWith(isLoading: true);
-
     // Calculate
     final bmi = BmiCalculator.calculate(height, weight);
-
     // Determine category
     final category = BmiCalculator.getCategory(bmi);
-
     // Create model
     final body = Body(height: height, weight: weight, date: DateTime.now());
 
