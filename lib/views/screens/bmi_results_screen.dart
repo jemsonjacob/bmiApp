@@ -44,7 +44,7 @@ class BmiResultsScreen extends ConsumerWidget {
                     const SizedBox(height: 10),
                     Text(
                       state.bmi?.toStringAsFixed(1) ?? "--",
-                      style: TextStyle(fontSize: 20, color: Colors.lightGreen),
+                      style: TextStyle(fontSize: 20),
                     ),
                     Text(
                       state.category?.name ?? "--",

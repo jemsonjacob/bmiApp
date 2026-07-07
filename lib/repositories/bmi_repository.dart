@@ -13,8 +13,4 @@ class BmiRepository {
   Future<List<Body>> getHistory() async {
     return box.values.toList();
   }
-
-  Future<void> deleteBody(int index) async {
-    await box.deleteAt(index);
-  }
 }
