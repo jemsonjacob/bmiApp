@@ -1,22 +1,22 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bodymodel.dart';
+part of 'bmimodel.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class BodyAdapter extends TypeAdapter<Body> {
+class BmiAdapter extends TypeAdapter<Bmi> {
   @override
   final int typeId = 0;
 
   @override
-  Body read(BinaryReader reader) {
+  Bmi read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return Body(
+    return Bmi(
       height: fields[0] as double,
       weight: fields[1] as double,
       date: fields[2] as DateTime,
@@ -24,7 +24,7 @@ class BodyAdapter extends TypeAdapter<Body> {
   }
 
   @override
-  void write(BinaryWriter writer, Body obj) {
+  void write(BinaryWriter writer, Bmi obj) {
     writer
       ..writeByte(3)
       ..writeByte(0)
@@ -41,7 +41,7 @@ class BodyAdapter extends TypeAdapter<Body> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is BodyAdapter &&
+      other is BmiAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

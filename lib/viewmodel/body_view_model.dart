@@ -2,7 +2,7 @@ import 'package:bmi/utils/bmi_calculator.dart';
 import 'package:bmi/viewmodel/bmi_state.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:bmi/model/bodymodel.dart';
+import 'package:bmi/model/bmimodel.dart';
 import 'package:bmi/repositories/bmi_repository.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -22,7 +22,7 @@ class BmiViewModel extends Notifier<BmiState> {
     // Determine category
     final category = BmiCalculator.getCategory(bmi);
     // Create model
-    final body = Body(height: height, weight: weight, date: DateTime.now());
+    final body = Bmi(height: height, weight: weight, date: DateTime.now());
 
     try {
       await _repository.saveBody(body);
@@ -30,6 +30,30 @@ class BmiViewModel extends Notifier<BmiState> {
       state = state.copyWith(bmi: bmi, category: category);
     } finally {
       state = state.copyWith(isLoading: false);
+    }
+  }
+
+  //history
+  Future<void> loadHistory() async {
+    //loading true
+    state = state.copyWith(isLoading: true);
+    //get history from repo
+    try {
+      final history = await _repository.getHistory();
+      state = state.copyWith(history: history);
+    } catch (e) {
+      state = state.copyWith(errorMessage: e.toString());
+    } finally {
+      state = state.copyWith(isLoading: false);
+    }
+  }
+
+  Future<void> deleteBody(int index) async {
+    try {
+      await _repository.deleteBody(index);
+      await loadHistory();
+    } catch (e) {
+      state = state.copyWith(errorMessage: e.toString());
     }
   }
 
@@ -41,7 +65,7 @@ class BmiViewModel extends Notifier<BmiState> {
 }
 
 final repositoryProvider = Provider((ref) {
-  final box = Hive.box<Body>("bodies");
+  final box = Hive.box<Bmi>("bodies");
   return BmiRepository(box);
 });
 

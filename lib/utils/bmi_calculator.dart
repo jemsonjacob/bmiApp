@@ -1,6 +1,5 @@
 import 'package:bmi/viewmodel/bmi_state.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class BmiCalculator {
   static double calculate(double height, double weight) {
@@ -28,6 +27,18 @@ class BmiCalculator {
       return Colors.orange;
     } else {
       return Colors.red;
+    }
+  }
+
+  static String getMessage(String type) {
+    if (type == "underweight") {
+      return "You may be underweight. Focus on a balanced, nutrient-rich diet and consult a healthcare professional if needed. Strength training can also help build healthy muscle.";
+    } else if (type == "normal") {
+      return "Great job! Maintain your healthy lifestyle with a balanced diet, regular exercise, adequate sleep, and proper hydration.";
+    } else if (type == "overweight") {
+      return "Aim for gradual, sustainable weight management through portion control, regular physical activity, and healthy eating habits. Small changes can make a big difference.";
+    } else {
+      return "Consider speaking with a healthcare professional for personalized guidance. A balanced diet, regular exercise, and consistent lifestyle changes can improve your overall health.";
     }
   }
 }

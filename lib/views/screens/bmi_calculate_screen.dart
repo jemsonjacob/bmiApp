@@ -1,4 +1,5 @@
 import 'package:bmi/viewmodel/body_view_model.dart';
+import 'package:bmi/views/screens/bmi_history_screen.dart';
 import 'package:bmi/views/screens/bmi_results_screen.dart';
 import 'package:bmi/views/screens/widgets/bmi_container.dart';
 import 'package:flutter/material.dart';
@@ -59,6 +60,17 @@ class _BmiCalculateScreenState extends ConsumerState<BmiCalculateScreen> {
         centerTitle: true,
         backgroundColor: Colors.cyan,
         title: Text("BMI Calculator", style: TextStyle(color: Colors.white)),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (_) => const BmiHistoryScreen()),
+              );
+            },
+            icon: Icon(Icons.history),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
